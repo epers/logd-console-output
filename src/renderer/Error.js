@@ -4,15 +4,12 @@
 
 
 
-module.exports = class ObjectRenderer {
-
+module.exports = class ErrorRenderer {
 
 
     getName() {
-        return 'object';
+        return 'error';
     }
-
-
     
 
     render(context, input) {

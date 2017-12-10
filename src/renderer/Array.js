@@ -4,15 +4,12 @@
 
 
 
-module.exports = class ObjectRenderer {
-
+module.exports = class ArrayRenderer {
 
 
     getName() {
-        return 'object';
+        return 'array';
     }
-
-
     
 
     render(context, input) {
