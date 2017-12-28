@@ -21,7 +21,6 @@ module.exports = class ErrorRenderer extends Renderer {
             'address',
             'code',
             'errno',
-            'name',
             'path',
             'port',
             'syscall',

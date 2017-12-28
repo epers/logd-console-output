@@ -85,7 +85,6 @@ section('Renderer', (section) => {
             '',
             '\u001b[37m    code\u001b[39m\u001b[90m: \u001b[39m\u001b[36mE_ACCESS\u001b[39m',
             '\u001b[37m   errno\u001b[39m\u001b[90m: \u001b[39m\u001b[36m5467\u001b[39m',
-            '\u001b[37m    name\u001b[39m\u001b[90m: \u001b[39m\u001b[36mError\u001b[39m',
             '',
             '\u001b[33m       test/000.200-renderer.js\u001b[39m\u001b[37m    4\u001b[39m\u001b[90m:13  \u001b[39m\u001b[37mObject.<anonymous>\u001b[39m',
         ]);

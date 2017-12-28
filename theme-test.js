@@ -5,10 +5,15 @@ const Logger = require('./');
 const log = new Logger();
 
 
+const err = new Error(`Cannot think of a good error text, so i'm writing this sentence!`);
+err.code = 'E_ACCESS';
+err.name = 'RangeError';
+err.errno = 23423;
+
 
 log.log({
     values: [
-        new Error('this is wrong!'),
+        err,
         new Map([['key', {
             values: [1,2,3]
         }], [1, 123], ['thisIsSo', 'a cool looger!']]),
@@ -74,4 +79,34 @@ log.log({
             ],
         }]
     ]
+});
+
+
+
+
+
+const callsite = {
+    lineNumber: 3425,
+    fileName: __filename,
+    type: 'Object',
+    function: 'section.test',
+    method: 'cb',
+    date: new Date(),
+};
+
+
+log.log({
+    values: ['This value is invalid: NaN!'],
+    color: 'green',
+    callsite,
+});
+log.log({
+    values: [`I don't think this should happen!`],
+    color: 'yellow',
+    callsite,
+});
+log.log({
+    values: [`This is critical!`],
+    color: 'red',
+    callsite,
 });

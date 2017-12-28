@@ -90,9 +90,6 @@ module.exports = class Console {
             callsite,
             color,
         });
-
-        // end with a newline
-        context.newLine();
         
         // return the context to the user
         return context;

@@ -145,7 +145,8 @@ module.exports = {
         },
         decoration: {
             text: {
-                color: 'grey',
+                color: 'white',
+                dim: true
             },
             decorator: {
                 color: 'grey',
