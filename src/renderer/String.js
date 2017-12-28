@@ -21,8 +21,9 @@ module.exports = class StringRenderer extends Renderer {
         value,
         label,
         decoration,
+        color,
     }) {
         context.renderDecoration({label, decoration: (decoration ? decoration+' ' : '')+`(${value.length})`, close: true});
-        context.print(this.decorate(context, this.truncate(value.slice(0, 80), 80), 'text'));
+        context.print(this.decorate(context, this.truncate(value.slice(0, 80), 80), 'text', color));
     }
 }

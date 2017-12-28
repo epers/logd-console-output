@@ -35,11 +35,11 @@ module.exports = class Renderer {
 
 
 
-    decorate(context, input, topic) {
+    decorate(context, input, topic, color) {
         const theme = context.getThemeFor(this.getName(), topic);
 
         if (theme.reset) input = chalk.reset(input);
-        if (theme.color) input = chalk[theme.color](input);
+        if (theme.color) input = chalk[color || theme.color](input);
         if (theme.bg) input = chalk[`bg${theme.bg[0].toUpperCase()}${theme.bg.substr(1)}`](input);
         if (theme.bold) input = chalk.bold(input);
         if (theme.italic) input = chalk.italic(input);

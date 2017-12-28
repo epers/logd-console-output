@@ -21,8 +21,9 @@ module.exports = class UndefinedRenderer extends Renderer {
         value,
         label,
         decoration,
+        color,
     }) {
         context.renderDecoration({label, decoration, close: true});
-        context.print(this.decorate(context, '<undefined>', 'text'));
+        context.print(this.decorate(context, '<undefined>', 'text', color));
     }
 }

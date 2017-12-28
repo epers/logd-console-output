@@ -21,8 +21,9 @@ module.exports = class NullRenderer extends Renderer {
         value,
         label,
         decoration,
+        color,
     }) {
         context.renderDecoration({label, decoration, close: true});
-        context.print(this.decorate(context, '<null>', 'text'));
+        context.print(this.decorate(context, '<null>', 'text', color));
     }
 }

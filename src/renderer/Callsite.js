@@ -59,6 +59,9 @@ module.exports = class CallsiteRenderer extends Renderer {
         let signature = '';
 
         if (callsite.type && callsite.function) signature = `${callsite.type}.${callsite.function}`;
+        else if (callsite.type) signature = callsite.type;
+        else if (callsite.function) signature = callsite.function;
+        
         if (callsite.method) signature += ` (as ${callsite.method})`;
 
         return signature+': ';

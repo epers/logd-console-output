@@ -80,6 +80,7 @@ module.exports = class Console {
         context = this.createContext(),
         options,
         callsite,
+        color,
     }) {
         if(options) context.setOptions(options);
         
@@ -87,6 +88,7 @@ module.exports = class Console {
         context.render({
             values,
             callsite,
+            color,
         });
 
         // end with a newline

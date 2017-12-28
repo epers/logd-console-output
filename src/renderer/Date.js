@@ -21,8 +21,9 @@ module.exports = class DateRenderer extends Renderer {
         value,
         label,
         decoration,
+        color,
     }) {
         context.renderDecoration({label, decoration, close: true});
-        context.print(this.decorate(context, value.toISOString(), 'text'));
+        context.print(this.decorate(context, value.toISOString(), 'text', color));
     }
 }

@@ -21,8 +21,9 @@ module.exports = class RegExpRenderer extends Renderer {
         value,
         label,
         decoration,
+        color,
     }) {
         context.renderDecoration({label, decoration: (decoration ? decoration+' ' : '')+'[RegExp]', close: true});
-        context.print(this.decorate(context, value, 'text'));
+        context.print(this.decorate(context, value, 'text', color));
     }
 }

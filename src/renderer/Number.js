@@ -21,8 +21,9 @@ module.exports = class NumberRenderer extends Renderer {
         value,
         label,
         decoration,
+        color,
     }) {
         context.renderDecoration({label, decoration, close: true});
-        context.print(this.decorate(context, value, 'text'));
+        context.print(this.decorate(context, value, 'text', color));
     }
 }

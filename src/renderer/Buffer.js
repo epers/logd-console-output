@@ -21,8 +21,9 @@ module.exports = class BufferRenderer extends Renderer {
         value,
         label,
         decoration,
+        color,
     }) {
         context.renderDecoration({label, decoration: (decoration ? decoration+' ' : '')+`[Buffer] (${value.length} bytes)`, close: true});
-        context.print(this.decorate(context, this.truncate('0x'+value.slice(0, 50).toString('HEX'), 80), 'text'));
+        context.print(this.decorate(context, this.truncate('0x'+value.slice(0, 50).toString('HEX'), 80), 'text', color));
     }
 }

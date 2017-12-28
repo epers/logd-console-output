@@ -7,7 +7,7 @@ const SpecReporter = section.SpecReporter;
 section.use(new SpecReporter());
 
 
-section('Basis', (section) => {
+section('Basics', (section) => {
     section.test('Load the code', async() => {
         require('../');
     });

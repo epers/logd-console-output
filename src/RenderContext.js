@@ -104,6 +104,7 @@ module.exports = class RenderContext {
                 value,
                 decoration,
                 label,
+                color,
             });
 
             this.newLine();
@@ -131,10 +132,9 @@ module.exports = class RenderContext {
         if (typeof value === 'object' && value !== null) {
             if (this.processedObjects.has(value)) {
                 this.renderers.get('recursion').render({
-                    context: this, 
-                    value: value,
-                    decoration: decoration,
-                    label: label,
+                    context: this,
+                    decoration,
+                    label,
                     value: `<circular value ${type(value)}>`,
                 });
                 return;
@@ -149,17 +149,18 @@ module.exports = class RenderContext {
 
             renderer.render({
                 context: this,
-                value: value,
-                decoration: decoration,
-                label: label,
+                value,
+                decoration,
+                label,
+                color,
             });
         } else {
 
             // just render an error
             this.renderers.get('error').render({
                 context: this, 
-                decoration: decoration,
-                label: label,
+                decoration,
+                label,
                 value: new Error(`logd console renderer: no render for the type '${valueType}' found! Please file an issue on github https://github.com/distributed-systems/logd-console-output`)
             });
         }
