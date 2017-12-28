@@ -7,54 +7,43 @@ module.exports = {
     renderers: {
         string: {
             text: {
-                color: 'white',
-                bold: true,
-                dim: true,
+                color: 'green',
             }
         },
         number: {
             text: {
                 color: 'blue',
-                bold: true,
             }
         },
         date: {
             text: {
-                color: 'magenta',
-                bold: true,
+                color: 'cyan',
             }
         },
         boolean: {
             text: {
-                color: 'yellow',
+                color: 'red',
+                dim: true,
             }
         },
         regexp: {
             text: {
-                color: 'red',
-                bold: true,
-                dim: true,
+                color: 'magenta',
             }
         },
         symbol: {
             text: {
-                color: 'red',
-                bold: true,
-                dim: true,
+                color: 'magenta',
             }
         },
         undefined: {
             text: {
-                color: 'blue',
-                bold: true,
-                dim: true,
+                color: 'magenta',
             }
         },
         null: {
             text: {
-                color: 'blue',
-                bold: true,
-                dim: true,
+                color: 'magenta',
             }
         },
         recursion: {
@@ -64,22 +53,17 @@ module.exports = {
         },
         weakSet: {
             text: {
-                color: 'red',
-                bold: true,
-                dim: true,
+                color: 'magenta',
             }
         },
         weakMap: {
             text: {
-                color: 'red',
-                bold: true,
-                dim: true,
+                color: 'magenta',
             }
         },
         buffer: {
             text: {
                 color: 'white',
-                dim: true,
             }
         },
         function: {
@@ -87,8 +71,7 @@ module.exports = {
                 color: 'cyan',
             },
             source: {
-                color: 'white',
-                dim: true,
+                color: 'grey'
             }
         },
         callsite: {
@@ -109,9 +92,7 @@ module.exports = {
         },
         promise: {
             name: {
-                color: 'red',
-                bold: true,
-                dim: true,
+                color: 'magenta',
             },
         },
         error: {
@@ -137,19 +118,18 @@ module.exports = {
             },
             property: {
                 color: 'white',
-                dim: true,
             },
             propertyValue: {
-                color: 'white',
+                color: 'cyan',
             },
         },
         decoration: {
             text: {
-                color: 'grey',
+                color: 'white',
+                dim: true,
             },
             decorator: {
                 color: 'grey',
-                dim: true
             }
         }
     },

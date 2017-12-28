@@ -74,7 +74,7 @@ module.exports = class ErrorRenderer extends Renderer {
         // print the frames
         structuredFrames.forEach((frame) => {
             context.newLine();
-            context.print(this.decorate(context, this.pad(this.truncateLeft(frame.path || '[...]')), 'path'));
+            context.print(this.decorate(context, this.pad(this.truncateLeft(frame.path || 'n/a')), 'path'));
             
             if (frame.line) context.print(this.decorate(context, this.pad(`${frame.line}`, 5), 'line'));
             else context.print(' '.repeat(5));
