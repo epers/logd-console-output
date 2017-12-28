@@ -11,7 +11,18 @@ err.name = 'RangeError';
 err.errno = 23423;
 
 
+const callsite = {
+    lineNumber: 3425,
+    fileName: __filename,
+    type: 'Object',
+    function: 'section.test',
+    method: 'cb',
+    date: new Date(),
+};
+
+
 log.log({
+    callsite,
     values: [
         err,
         new Map([['key', {
@@ -83,16 +94,6 @@ log.log({
 
 
 
-
-
-const callsite = {
-    lineNumber: 3425,
-    fileName: __filename,
-    type: 'Object',
-    function: 'section.test',
-    method: 'cb',
-    date: new Date(),
-};
 
 
 log.log({
