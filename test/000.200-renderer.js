@@ -173,6 +173,28 @@ section('Renderer', (section) => {
 
 
 
+    section.test('Callsite', async () => {
+        const Console = require('../');
+        const log = new Console();
+        const validator = new OutputValidator(log);
+
+        const callsite = {
+            lineNumber: 3425,
+            fileName: __filename.replace('.js', '/')+'a/pretty/long/path/to/be/Truncated.js',
+            type: 'Object',
+            function: 'section.test',
+            method: 'cb',
+            date: new Date(0),
+        };
+
+        await validator.validate([1], [
+            `${chalk.grey('01  01:00:00.000 > ')}${chalk.dim(chalk.white('…y/long/path/to/be/Truncated.js'))}${chalk.grey(':3425, ')}${chalk.dim(chalk.white('…t.section.test (as cb): '))}${chalk.blue(1)}`,
+        ], callsite);
+    });
+
+
+
+
     section.test('Array', async () => {
         const Console = require('../');
         const log = new Console();

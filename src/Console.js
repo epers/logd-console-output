@@ -79,11 +79,15 @@ module.exports = class Console {
         values,
         context = this.createContext(),
         options,
+        callsite,
     }) {
         if(options) context.setOptions(options);
         
         // render all values
-        context.render({values});
+        context.render({
+            values,
+            callsite,
+        });
 
         // end with a newline
         context.newLine();

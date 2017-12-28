@@ -74,6 +74,22 @@ module.exports = {
                 color: 'grey'
             }
         },
+        callsite: {
+            path: {
+                color: 'white',
+                dim: true,
+            },
+            line: {
+                color: 'grey'
+            },
+            signature: {
+                color: 'white',
+                dim: true,
+            },
+            time: {
+                color: 'grey'
+            },
+        },
         promise: {
             name: {
                 color: 'magenta',

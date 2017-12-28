@@ -91,6 +91,14 @@ module.exports = class RenderContext {
         decoration,
         label,
     }) {
+        if (callsite) {
+            this.renderers.get('callsite').render({
+                context: this, 
+                value: callsite,
+            });
+        }
+
+
         values.forEach((value) => {
             this.renderValue({
                 value,
@@ -115,7 +123,6 @@ module.exports = class RenderContext {
     */
     renderValue({
         value,
-        callsite,
         color,
         decoration,
         label,
@@ -151,7 +158,6 @@ module.exports = class RenderContext {
             // just render an error
             this.renderers.get('error').render({
                 context: this, 
-                value: value,
                 decoration: decoration,
                 label: label,
                 value: new Error(`logd console renderer: no render for the type '${valueType}' found! Please file an issue on github https://github.com/distributed-systems/logd-console-output`)
