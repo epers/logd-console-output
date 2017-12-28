@@ -8,20 +8,75 @@ const type = require('ee-types');
 module.exports = class RenderContext {
 
     constructor({
-        indentation = 4,
+        indentation,
         renderers,
-        printer = console.log
+        printer = console.log,
+        theme,
     }) {
-        this.indentation = indentation;
+        if (theme.indentation) this.indentation = theme.indentation;
+        if (indentation) this.indentation = indentation;
         this.renderers = renderers;
         this.printer = printer;
+        this.theme = theme;
 
         // how many indentation levels are we in?
         this.level = 0;
 
         // buffer everything until a linebreak is reached
         this.lineBuffer = '';
+
+        // don't print anything twice, store refernces to all objects
+        // so that this can be prevents
+        this.processedObjects = new WeakSet();
     }
+
+
+
+
+
+
+    /**
+    * set options for rendering
+    */
+    setOptions({
+        maxArrayLength,
+        maxStringLength,
+        indentation,
+    } = {}) {
+        if (maxArrayLength) this.maxArrayLength = maxArrayLength;
+        if (maxStringLength) this.maxStringLength = maxStringLength;
+        if (indentation) this.indentation = indentation;
+    }
+
+
+
+
+
+    /**
+    * render a lable fo a value
+    */
+    renderDecoration(value) {
+        this.renderers.get('decoration').render({
+            context: this,
+            value: value,
+        });
+    }
+
+
+
+
+
+    /**
+    * return a theme config for a given element
+    */
+    getThemeFor(element, decorator) {
+        if (!this.theme) throw new Error(`No theme set on the reenderContext!`);
+        if (!this.theme.renderers) throw new Error(`No renderers configurations present fr the theme '${theme.name}'!`);
+        if (!this.theme.renderers[element]) throw new Error(`The '${this.theme.name}' theme doesn't contain a definition for the element '${element}'!`);
+        if (!this.theme.renderers[element][decorator]) throw new Error(`The '${this.theme.name}' theme doesn't contain a definition for the decorator '${decorator}' of the element '${element}'!`);
+        return this.theme.renderers[element][decorator];
+    }
+
 
 
 
@@ -33,21 +88,24 @@ module.exports = class RenderContext {
         values,
         callsite,
         color,
+        decoration,
+        label,
     }) {
         values.forEach((value) => {
-            const valueType = type(value);
+            this.renderValue({
+                value,
+                decoration,
+                label,
+            });
 
-            if (this.renderers.has(valueType)) {
-                const renderer = this.renderers.get(valueType);
-
-                renderer.render(this, value);
-            } else {
-
-                // just render an error
-                this.renderers.get('error').render(this, new Error(`logd console renderer: no render for the type '${valueType}' found! Please file an issue on github https://github.com/distributed-systems/logd-console-output`));
-            }
+            this.newLine();
         });
     }
+
+
+
+
+
 
 
 
@@ -55,8 +113,50 @@ module.exports = class RenderContext {
     /**
     * renders a single value
     */
-    renderValue(value) {
+    renderValue({
+        value,
+        callsite,
+        color,
+        decoration,
+        label,
+    }) {
+        // make sure no objects is rendered twice
+        if (typeof value === 'object' && value !== null) {
+            if (this.processedObjects.has(value)) {
+                this.renderers.get('recursion').render({
+                    context: this, 
+                    value: value,
+                    decoration: decoration,
+                    label: label,
+                    value: `<circular value ${type(value)}>`,
+                });
+                return;
+            } else this.processedObjects.add(value);
+        }
 
+
+        const valueType = type(value);
+
+        if (this.renderers.has(valueType)) {
+            const renderer = this.renderers.get(valueType);
+
+            renderer.render({
+                context: this,
+                value: value,
+                decoration: decoration,
+                label: label,
+            });
+        } else {
+
+            // just render an error
+            this.renderers.get('error').render({
+                context: this, 
+                value: value,
+                decoration: decoration,
+                label: label,
+                value: new Error(`logd console renderer: no render for the type '${valueType}' found! Please file an issue on github https://github.com/distributed-systems/logd-console-output`)
+            });
+        }
     }
 
 
@@ -91,6 +191,7 @@ module.exports = class RenderContext {
     */
     newLine() {
         this.printer(this.lineBuffer);
+        this.lineBuffer = this.getSpacing();
     }
 
 
@@ -103,6 +204,7 @@ module.exports = class RenderContext {
     }
 
 
+
     /**
     * decreses the level
     */
@@ -112,9 +214,8 @@ module.exports = class RenderContext {
 
 
 
-
     /**
-    * returns the wihitespace that needs to be inf ront of items
+    * returns the wihitespace that needs to be in front of items
     */
     getSpacing() {
         return ' '.repeat(this.indentation*this.level);

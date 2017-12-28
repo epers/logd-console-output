@@ -7,10 +7,10 @@ const Renderer = require('./Renderer');
 
 
 
-module.exports = class ObjectRenderer extends Renderer {
+module.exports = class MapRenderer extends Renderer {
 
     getName() {
-        return 'object';
+        return 'map';
     }
 
 
@@ -23,17 +23,17 @@ module.exports = class ObjectRenderer extends Renderer {
         label,
         decoration,
     }) {
-        const keys = Object.keys(value);
-
-        context.renderDecoration({label, decoration: `${decoration ? decoration+' ' : ''}[Object] (${keys.length}): {`});
+        context.renderDecoration({label, decoration: `${decoration ? decoration+' ' : ''}[Map] (${value.size}): {`});
         context.in();
-        keys.forEach((key, index) => {
+
+        for (const [key, item] of value.entries()) {
             context.newLine();
             context.renderValue({
-                value: value[key],
+                value: item,
                 label: key,
             });
-        });
+        }
+
         context.out();
         context.newLine();
         context.renderDecoration({decoration: `}`});

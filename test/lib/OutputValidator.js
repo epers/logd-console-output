@@ -14,15 +14,15 @@ module.exports = class OutputValidator {
 
 
 
-    async validate(input, lines) {
-        const context = await this.logger.log({
-            values: input
-        });
-        
-        let offset = 0; 
+    validate(input, lines) {
+        const context = this.logger.createContext();
 
-        await new Promise((resolve, reject) => {
-            context.setPrinter((message) => {
+        // register a custom printer which validates
+        // the output of the logger
+        const promise = new Promise((resolve, reject) => {
+            let offset = 0;
+
+            context.setPrinter((message) => { //console.log(message);
                 try {
                     assert.equal(message, lines[offset]);
                     offset++;
@@ -33,5 +33,15 @@ module.exports = class OutputValidator {
                 if (offset === lines.length) resolve();
             });
         });
+
+        
+        // send the values to the logger
+        this.logger.log({
+            values: input,
+            context: context,
+        });
+
+        // let the user evaluate the promise
+        return promise;
     }
 }
