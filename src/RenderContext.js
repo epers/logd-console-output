@@ -90,6 +90,7 @@ module.exports = class RenderContext {
         color,
         decoration,
         label,
+        options,
     }) {
         if (callsite) {
             this.renderers.get('callsite').render({
@@ -105,6 +106,7 @@ module.exports = class RenderContext {
                 decoration,
                 label,
                 color,
+                options,
             });
 
             this.newLine();
@@ -127,6 +129,7 @@ module.exports = class RenderContext {
         color,
         decoration,
         label,
+        options = {},
     }) {
         // make sure no objects is rendered twice
         if (typeof value === 'object' && value !== null) {
@@ -153,6 +156,7 @@ module.exports = class RenderContext {
                 decoration,
                 label,
                 color,
+                options,
             });
         } else {
 

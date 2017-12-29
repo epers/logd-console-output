@@ -89,6 +89,7 @@ module.exports = class Console {
             values,
             callsite,
             color,
+            options,
         });
         
         // return the context to the user

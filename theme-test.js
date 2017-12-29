@@ -99,7 +99,7 @@ log.log({
 log.log({
     values: ['This value is invalid: NaN!'],
     color: 'green.bold',
-    callsite,
+    callsite: Object.assign({}, callsite, {lineNumber: 4}),
 });
 log.log({
     values: [`I don't think this should happen!`],
@@ -115,4 +115,19 @@ log.log({
     values: [err],
     color: 'red',
     callsite,
+});
+
+log.log({
+    values: [`a pretty long string that should be trunctaed, but does it? I'm not sure, or am i? i am! So, i'm still in the airplane and someone keep sfarting. Thanks obama!`],
+    color: 'red.bold',
+    callsite,
+});
+
+log.log({
+    values: [`a pretty long string that should be trunctaed, but does it? I'm not sure, or am i? i am! So, i'm still in the airplane and someone keep sfarting. Thanks obama! this one gets rendered!`],
+    color: 'cyan.bold.strikethrough.underline.bgBlue',
+    callsite,
+    options: {
+        truncate: 1000
+    }
 });

@@ -67,7 +67,13 @@ module.exports = class ErrorRenderer extends Renderer {
 
         // get a proper stack
         const frames = this.convertStack(value);
-        const structuredFrames = this.analyzeFrames(frames);
+        let structuredFrames = this.analyzeFrames(frames);
+
+
+        // remove the first frame if it contains the error message
+        if (structuredFrames.length && structuredFrames[0].text && structuredFrames[0].text.includes(value.message)) {
+            structuredFrames = structuredFrames.slice(1);
+        }
 
         
         // print the frames

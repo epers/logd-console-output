@@ -114,7 +114,7 @@ section('Renderer', (section) => {
         const log = new Console();
         const validator = new OutputValidator(log);
 
-        await validator.validate([Buffer.alloc(100, 'a')], ['\u001b[90m[Buffer] (100 bytes)\u001b[39m\u001b[90m: \u001b[39m\u001b[37m1616161616161616161616161616161616161616161616161616161616161616161616161616161…\u001b[39m']);
+        await validator.validate([Buffer.alloc(100, 'a')], ['\u001b[90m[Buffer] (100 bytes)\u001b[39m\u001b[90m: \u001b[39m\u001b[37m0x616161616161616161616161616161616161616161616161616161616161616161616161616161616…\u001b[39m']);
     });
 
 

@@ -25,7 +25,7 @@ module.exports = class CallsiteRenderer extends Renderer {
     }) {
         context.print(this.decorate(context, this.getTimeSignature(value.date)+' > ', 'time'));
         context.print(this.decorate(context, this.pad(this.truncateLeft(this.truncatePath(value.fileName)), 31, ' '), 'path'));
-        context.print(this.decorate(context, `:${value.lineNumber}, `, 'line'));
+        context.print(this.decorate(context, `:${this.padRight(value.lineNumber)} `, 'line'));
         context.print(this.decorate(context, this.pad(this.truncateLeft(this.getSignature(value), 25), 25, ' '), 'signature'));
     }
 
@@ -41,6 +41,13 @@ module.exports = class CallsiteRenderer extends Renderer {
         return `${p(d.getDate())}  ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}.${p(d.getMilliseconds(), 3)}`;
     }
 
+
+
+    padRight(input, len = 5, char = ' ') {
+        input = input+'';
+        if (input.length < len) return input+char.repeat(len-input.length);
+        else return input;
+    }
 
 
 

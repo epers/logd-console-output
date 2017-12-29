@@ -38,7 +38,7 @@ section('Extended Functions', (section) => {
         };
 
         await validator.validate([1], [
-            `${chalk.grey('01  01:00:00.000 > ')}${chalk.dim(chalk.white('…y/long/path/to/be/Truncated.js'))}${chalk.grey(':3425, ')}${chalk.dim(chalk.white('…t.section.test (as cb): '))}${chalk.blue(1)}`,
+            `${chalk.grey('01  01:00:00.000 > ')}${chalk.dim(chalk.white('…y/long/path/to/be/Truncated.js'))}${chalk.grey(':3425  ')}${chalk.dim(chalk.white('…t.section.test (as cb): '))}${chalk.blue(1)}`,
         ], {callsite});
     });
 
@@ -59,7 +59,7 @@ section('Extended Functions', (section) => {
         };
 
         await validator.validate([1], [
-            `${chalk.grey('01  01:00:00.000 > ')}${chalk.dim(chalk.white('                     test/ns.js'))}${chalk.grey(':3425, ')}${chalk.dim(chalk.white('                    o.s: '))}${chalk.blue(1)}`,
+            `${chalk.grey('01  01:00:00.000 > ')}${chalk.dim(chalk.white('                     test/ns.js'))}${chalk.grey(':3425  ')}${chalk.dim(chalk.white('                    o.s: '))}${chalk.blue(1)}`,
         ], {callsite});
     });
 
@@ -78,7 +78,7 @@ section('Extended Functions', (section) => {
         };
 
         await validator.validate([1], [
-            `${chalk.grey('01  01:00:00.000 > ')}${chalk.dim(chalk.white('                     test/ns.js'))}${chalk.grey(':3425, ')}${chalk.dim(chalk.white('                      o: '))}${chalk.blue(1)}`,
+            `${chalk.grey('01  01:00:00.000 > ')}${chalk.dim(chalk.white('                     test/ns.js'))}${chalk.grey(':3425  ')}${chalk.dim(chalk.white('                      o: '))}${chalk.blue(1)}`,
         ], {callsite});
     });
 });

@@ -24,18 +24,21 @@ module.exports = class ObjectRenderer extends Renderer {
         decoration,
     }) {
         const keys = Object.keys(value);
-
         context.renderDecoration({label, decoration: `${decoration ? decoration+' ' : ''}[Object] (${keys.length}): {`});
-        context.in();
-        keys.forEach((key, index) => {
-            context.newLine();
-            context.renderValue({
-                value: value[key],
-                label: key,
+
+        if (keys.length) {
+            context.in();
+            keys.forEach((key, index) => {
+                context.newLine();
+                context.renderValue({
+                    value: value[key],
+                    label: key,
+                });
             });
-        });
-        context.out();
-        context.newLine();
+            context.out();
+            context.newLine();
+        }
+        
         context.renderDecoration({decoration: `}`});
     }
 }

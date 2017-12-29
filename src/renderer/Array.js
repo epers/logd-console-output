@@ -23,13 +23,17 @@ module.exports = class ArrayRenderer extends Renderer {
         label,
     }) {
         context.renderDecoration({label, decoration: `[Array] (${value.length}): [`});
-        context.in();
-        value.forEach((value, index) => {
+
+        if (value.length) {
+            context.in();
+            value.forEach((value, index) => {
+                context.newLine();
+                context.renderValue({value, decoration: `${index}`});
+            });
+            context.out();
             context.newLine();
-            context.renderValue({value, decoration: `${index}`});
-        });
-        context.out();
-        context.newLine();
+        }
+        
         context.renderDecoration({decoration: `]`});
     }
 }
