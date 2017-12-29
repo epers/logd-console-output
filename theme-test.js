@@ -98,16 +98,21 @@ log.log({
 
 log.log({
     values: ['This value is invalid: NaN!'],
-    color: 'green',
+    color: 'green.bold',
     callsite,
 });
 log.log({
     values: [`I don't think this should happen!`],
-    color: 'yellow',
+    color: 'yellow.bold',
     callsite,
 });
 log.log({
     values: [`This is critical!`],
+    color: 'red.bold',
+    callsite,
+});
+log.log({
+    values: [err],
     color: 'red',
     callsite,
 });
