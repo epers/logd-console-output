@@ -21,17 +21,28 @@ module.exports = class FunctionRenderer extends Renderer {
         value,
         label,
         decoration,
+        options,
     }) {
         const source = value.toString().split(/\n/g);
         context.renderDecoration({label, decoration: (decoration ? decoration+' ' : '')+`[Function] (${source.length} lines)`, close: true});
         context.print(this.decorate(context, value.name+' ', 'name'));
-        context.print(this.decorate(context, this.truncate(source[0].slice(0, 80), 80), 'source'));
+        context.print(this.decorate(context, this.truncate(source[0], options.truncate || 80), 'source'));
 
+        let remainginChars = (options.truncate || 20) - source[0].length;
 
-        this.truncateWhiteSpace(source.slice(1)).forEach((line) => {
-            context.newLine();
-            context.print(this.decorate(context, this.truncate(line.slice(0, 80), 80), 'source'));
-        });
+        if (remainginChars > 0) {
+            this.truncateWhiteSpace(source.slice(1)).map((line) => {
+                remainginChars -= line.length;
+
+                return {
+                    line: line,
+                    remainginChars: remainginChars+line.length,
+                };
+            }).filter(line => line.remainginChars > 0).forEach((line) => {
+                context.newLine();
+                context.print(this.decorate(context, this.truncate(line.line, line.remainginChars), 'source'));
+            });
+        } else context.print(this.decorate(context, ` \u2026`, 'source'));
     }
 
 

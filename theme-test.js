@@ -21,6 +21,16 @@ const callsite = {
 };
 
 
+const aLongFunction = (some, paramters = {}) => {
+    // the comment is of no use,
+    const butTheVariable = 'is!';
+
+    for (const char of butTheVariable.values()) {
+        console.log(char);
+    }
+};
+
+
 log.log({
     callsite,
     values: [
@@ -35,6 +45,7 @@ log.log({
         true,
         new Date(),
         () => {return 1;},
+        aLongFunction,
         435435,
         Symbol(234234),
         /does this match?/gim,
