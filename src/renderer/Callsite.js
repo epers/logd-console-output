@@ -24,8 +24,8 @@ module.exports = class CallsiteRenderer extends Renderer {
         decoration,
     }) {
         context.print(this.decorate(context, this.getTimeSignature(value.date)+' > ', 'time'));
-        context.print(this.decorate(context, this.pad(this.truncateLeft(this.truncatePath(value.fileName)), 31, ' '), 'path'));
-        context.print(this.decorate(context, `:${this.padRight(value.lineNumber)} `, 'line'));
+        context.print(this.decorate(context, this.pad(this.truncateLeft(this.truncatePath(value.fileName || 'n/a')), 31, ' '), 'path'));
+        context.print(this.decorate(context, `:${this.padRight(value.lineNumber || 'n/a')} `, 'line'));
         context.print(this.decorate(context, this.pad(this.truncateLeft(this.getSignature(value), 25), 25, ' '), 'signature'));
     }
 
