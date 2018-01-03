@@ -43,7 +43,7 @@ module.exports = class CallsiteRenderer extends Renderer {
 
 
 
-    padRight(input, len = 5, char = ' ') {
+    padRight(input = '', len = 5, char = ' ') {
         input = input+'';
         if (input.length < len) return input+char.repeat(len-input.length);
         else return input;
@@ -81,7 +81,7 @@ module.exports = class CallsiteRenderer extends Renderer {
     /**
     * truncate string to a certain length
     */
-    truncateLeft(input, len = 31) {
+    truncateLeft(input = '', len = 31) {
         if (input.length > len) return '\u2026'+input.substr(input.length-len+1);
         return input;
     }
@@ -93,7 +93,7 @@ module.exports = class CallsiteRenderer extends Renderer {
     * truncate paths so that the part of the projects
     * directory is removed
     */
-    truncatePath(path) {
+    truncatePath(path = '') {
 
         // remove th eproject root
         if (path.startsWith(rootPath)) path = path.substr(rootPath.length+1);
