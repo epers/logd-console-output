@@ -22,6 +22,7 @@ module.exports = class MapRenderer extends Renderer {
         theme,
         label,
         decoration,
+        optios,
     }) {
         context.renderDecoration({label, decoration: `${decoration ? decoration+' ' : ''}[Map] (${value.size}): {`});
 
@@ -32,6 +33,7 @@ module.exports = class MapRenderer extends Renderer {
                 context.renderValue({
                     value: item,
                     label: key,
+                    optios,
                 });
             }
             context.out();

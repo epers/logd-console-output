@@ -21,6 +21,7 @@ module.exports = class ArrayRenderer extends Renderer {
         value,
         theme,
         label,
+        optios,
     }) {
         context.renderDecoration({label, decoration: `[Array] (${value.length}): [`});
 
@@ -28,7 +29,10 @@ module.exports = class ArrayRenderer extends Renderer {
             context.in();
             value.forEach((value, index) => {
                 context.newLine();
-                context.renderValue({value, decoration: `${index}`});
+                context.renderValue({
+                    value, decoration: `${index}`,
+                    optios,
+                });
             });
             context.out();
             context.newLine();
