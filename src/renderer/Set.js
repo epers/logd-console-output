@@ -21,7 +21,7 @@ module.exports = class SetRenderer extends Renderer {
         value,
         theme,
         label,
-        optios,
+        options,
     }) {
         context.renderDecoration({label, decoration: `[Set] (${value.size}): [`});
 
@@ -34,7 +34,7 @@ module.exports = class SetRenderer extends Renderer {
                 context.renderValue({
                     value: item,
                     decoration: `${index}`,
-                    optios,
+                    options,
                 });
                 index++;
             }

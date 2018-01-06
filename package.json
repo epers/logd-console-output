@@ -1,6 +1,6 @@
 {
   "name": "logd-console-output",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "console output for logd",
   "main": "index.js",
   "scripts": {

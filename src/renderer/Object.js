@@ -22,7 +22,7 @@ module.exports = class ObjectRenderer extends Renderer {
         theme,
         label,
         decoration,
-        optios,
+        options,
     }) {
         const keys = Object.keys(value);
         context.renderDecoration({label, decoration: `${decoration ? decoration+' ' : ''}[Object] (${keys.length}): {`});
@@ -34,7 +34,7 @@ module.exports = class ObjectRenderer extends Renderer {
                 context.renderValue({
                     value: value[key],
                     label: key,
-                    optios,
+                    options,
                 });
             });
             context.out();
