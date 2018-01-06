@@ -30,7 +30,7 @@ module.exports = class Renderer {
         if (input.length > len) {
             const truncateString = `\u2026`;
 
-            return input.substr(0, input.length-len+truncateString.length)+truncateString;
+            return input.substr(0, len+truncateString.length)+truncateString;
         } else return input;
     }
 
