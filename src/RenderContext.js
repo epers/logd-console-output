@@ -145,7 +145,16 @@ module.exports = class RenderContext {
         }
 
 
-        const valueType = type(value);
+        let valueType;
+
+
+        // allow custom renderer assignements
+        if (type.object(value) && value.__logd_custom_renderer) {
+            valueType = value.__logd_custom_renderer;
+        } else {
+            valueType = type(value);
+        }
+
 
         if (this.renderers.has(valueType)) {
             const renderer = this.renderers.get(valueType);

@@ -22,6 +22,12 @@ module.exports = class Renderer {
 
 
 
+    getThemeName() {
+        return this.themeName || this.getName();
+    }
+
+
+
 
     /**
     * truncate string to a certain length
@@ -41,7 +47,7 @@ module.exports = class Renderer {
 
 
     decorate(context, input, topic, color) {
-        let theme = context.getThemeFor(this.getName(), topic);
+        let theme = context.getThemeFor(this.getThemeName(), topic);
 
         if (color) {
             theme = {};

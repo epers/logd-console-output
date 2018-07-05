@@ -17,6 +17,8 @@ module.exports = class ErrorRenderer extends Renderer {
     constructor() {
         super();
 
+        this.themeName = 'error';
+
         this.errorProperties = [
             'address',
             'code',
@@ -31,7 +33,7 @@ module.exports = class ErrorRenderer extends Renderer {
 
 
     getName() {
-        return 'error';
+        return 'logd-error';
     }
 
 
@@ -67,8 +69,7 @@ module.exports = class ErrorRenderer extends Renderer {
 
 
         // get a proper stack
-        const frames = this.convertStack(value);
-        let structuredFrames = this.analyzeFrames(frames);
+        let structuredFrames = value.frames;
 
 
         // remove the first frame if it contains the error message
@@ -80,16 +81,16 @@ module.exports = class ErrorRenderer extends Renderer {
         // print the frames
         structuredFrames.forEach((frame) => {
             context.newLine();
-            context.print(this.decorate(context, this.pad(this.truncateLeft(frame.path || 'n/a')), 'path'));
+            context.print(this.decorate(context, this.pad(this.truncateLeft(frame.fileName || 'n/a')), 'path'));
             
-            if (frame.line) context.print(this.decorate(context, this.pad(`${frame.line}`, 5), 'line'));
+            if (frame.lineNumber) context.print(this.decorate(context, this.pad(`${frame.lineNumber}`, 5), 'line'));
             else context.print(' '.repeat(5));
 
             if (frame.character) context.print(this.decorate(context, this.pad(`:${frame.character} `, 5, true), 'decoration'));
             else context.print(' '.repeat(5));
 
-            context.print(this.decorate(context, (frame.fn || frame.text || '').trim(), 'function'));
-            if (frame.alias) context.print(this.decorate(context, ` (${frame.alias})`, 'decoration'));
+            context.print(this.decorate(context, (frame.function || frame.message || '').trim(), 'function'));
+            if (frame.method) context.print(this.decorate(context, ` (${frame.method})`, 'decoration'));
         });
     }
 
@@ -119,74 +120,5 @@ module.exports = class ErrorRenderer extends Renderer {
             if (right) return input+' '.repeat(len-input.length);
             else return ' '.repeat(len-input.length)+input;
         } else return input;
-    }
-
-
-
-
-
-
-    /**
-    * analyze the frames of the stack
-    */
-    analyzeFrames(frames) {
-        return frames.map((frame) => {
-            const result = /(?:\n|^)\s*(?:at)?\s*([^\(\[]+)(?:\[([^\]]+)\])?\s*\(([^\):]+):?([^\):]+)?:?([0-9]+)?\)/gi.exec(frame);
-
-            if (result) {
-                return {
-                    fn: result[1] ? result[1].trim() : null,
-                    alias: result[2] || null,
-                    path: this.truncatePath(result[3]),
-                    line: result[4] && result[4] !== 'null' ? result[4] : null,
-                    character: result[5] || null,
-                };
-            } else return {text: frame};
-        });
-    }
-
-
-
-
-
-
-    /**
-    * truncate paths so that the part of the projects
-    * directory is removed
-    */
-    truncatePath(path) {
-
-        // remove the project root
-        if (path.startsWith(rootPath)) path = path.substr(rootPath.length+1);
-        else if (path.startsWith(`file://${rootPath}`)) path = path.substr(rootPath.length+1+7);
-
-        // check for node modules, remove that
-        const index = path.lastIndexOf('node_modules');
-        if (index >= 0) path = 'nm:'+path.substr(index+'node_modules'.length);
-
-        return path;
-    }
-
-
-
-
-
-
-    /**
-    * convert the stack to an array containing strings
-    */
-    convertStack(err) {
-        let frames;
-
-        if (type.array(err.stack)) {
-            frames = err.stack.map((frame) => {
-                if (type.string(frame)) return frame;
-                else return frame.toString();
-            });
-        } else if (type.string(err.stack)) {
-            frames = err.stack.split(/\n/g);
-        }
-
-        return frames;
     }
 }

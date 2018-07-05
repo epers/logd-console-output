@@ -82,7 +82,7 @@ module.exports = class Console {
         callsite,
         color,
     }) {
-        if(options) context.setOptions(options);
+        if (options) context.setOptions(options);
         
         // render all values
         context.render({
