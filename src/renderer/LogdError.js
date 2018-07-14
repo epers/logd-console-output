@@ -71,27 +71,30 @@ module.exports = class ErrorRenderer extends Renderer {
         // get a proper stack
         let structuredFrames = value.frames;
 
+        if (Array.isArray(structuredFrames)) {
+            // remove the first frame if it contains the error message
+            if (structuredFrames.length && structuredFrames[0].text && structuredFrames[0].text.includes(value.message)) {
+                structuredFrames = structuredFrames.slice(1);
+            }
 
-        // remove the first frame if it contains the error message
-        if (structuredFrames.length && structuredFrames[0].text && structuredFrames[0].text.includes(value.message)) {
-            structuredFrames = structuredFrames.slice(1);
-        }
-
-        
-        // print the frames
-        structuredFrames.forEach((frame) => {
-            context.newLine();
-            context.print(this.decorate(context, this.pad(this.truncateLeft(frame.fileName || 'n/a')), 'path'));
             
-            if (frame.lineNumber) context.print(this.decorate(context, this.pad(`${frame.lineNumber}`, 5), 'line'));
-            else context.print(' '.repeat(5));
+            // print the frames
+            structuredFrames.forEach((frame) => {
+                context.newLine();
+                context.print(this.decorate(context, this.pad(this.truncateLeft(frame.fileName || 'n/a')), 'path'));
+                
+                if (frame.lineNumber) context.print(this.decorate(context, this.pad(`${frame.lineNumber}`, 5), 'line'));
+                else context.print(' '.repeat(5));
 
-            if (frame.character) context.print(this.decorate(context, this.pad(`:${frame.character} `, 5, true), 'decoration'));
-            else context.print(' '.repeat(5));
+                if (frame.character) context.print(this.decorate(context, this.pad(`:${frame.character} `, 5, true), 'decoration'));
+                else context.print(' '.repeat(5));
 
-            context.print(this.decorate(context, (frame.function || frame.message || '').trim(), 'function'));
-            if (frame.method) context.print(this.decorate(context, ` (${frame.method})`, 'decoration'));
-        });
+                context.print(this.decorate(context, (frame.function || frame.message || '').trim(), 'function'));
+                if (frame.method) context.print(this.decorate(context, ` (${frame.method})`, 'decoration'));
+            });
+        } else {
+            context.print(this.decorate(context, (structuredFrames), 'function'));
+        }
     }
 
 
