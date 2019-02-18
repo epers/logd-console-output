@@ -157,7 +157,7 @@ module.exports = class RenderContext {
         let valueType;
 
 
-        // allow custom renderer assignements
+        // allow custom renderer assignments
         if (type.object(value) && value.__logd_custom_renderer) {
             valueType = value.__logd_custom_renderer;
         } else {
@@ -177,7 +177,7 @@ module.exports = class RenderContext {
                 options,
             });
         } else {
-
+console.log(155555555555, typeof value, Object.prototype.toString.call(value));
             // just render an error
             this.renderers.get('error').render({
                 context: this, 

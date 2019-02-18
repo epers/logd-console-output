@@ -99,7 +99,6 @@ section('Renderer', (section) => {
         await validator.validate([undefined], ['\u001b[35m<undefined>\u001b[39m']);
     });
 
-
     section.test('Null', async () => {
         const Console = require('../');
         const log = new Console();
@@ -361,6 +360,24 @@ section('Renderer', (section) => {
             '    \u001b[90m5\u001b[39m\u001b[90m: \u001b[39m\u001b[35m<undefined>\u001b[39m',
             '    \u001b[90m6\u001b[39m\u001b[90m: \u001b[39m\u001b[35m<null>\u001b[39m',
             '\u001b[90m]\u001b[39m',
+        ]);
+    });
+
+
+
+    section.test('Custom Class Types', async () => {
+        const Console = require('../');
+        const log = new Console();
+        const validator = new OutputValidator(log);
+
+        const X = class {
+            get [Symbol.toStringTag]() {
+                return 'AQL query';;
+            }
+        };
+
+        await validator.validate([new X()], [
+            '\u001b[90m[Object] (0): {\u001b[39m\u001b[90m}\u001b[39m',
         ]);
     });
 });
