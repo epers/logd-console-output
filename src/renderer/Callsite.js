@@ -20,8 +20,6 @@ module.exports = class CallsiteRenderer extends Renderer {
     render({
         context,
         value,
-        label,
-        decoration,
     }) {
         context.print(this.decorate(context, this.getTimeSignature(value.date)+' > ', 'time'));
         context.print(this.decorate(context, this.pad(this.truncateLeft(this.truncatePath(value.fileName || 'n/a')), 31, ' '), 'path'));

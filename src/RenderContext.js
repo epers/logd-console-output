@@ -91,11 +91,20 @@ module.exports = class RenderContext {
         decoration,
         label,
         options,
+        moduleName,
     }) {
         if (callsite) {
             this.renderers.get('callsite').render({
                 context: this, 
                 value: callsite,
+            });
+        }
+
+
+        if (moduleName) {
+            this.renderers.get('moduleName').render({
+                context: this,
+                value: moduleName,
             });
         }
 

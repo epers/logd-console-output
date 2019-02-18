@@ -5,6 +5,13 @@ module.exports = {
     name: 'default.dark',
     indentation: 4,
     renderers: {
+        moduleName: {
+            text: {
+                color: 'magenta',
+                bold: true,
+                dim: true,
+            }
+        },
         string: {
             text: {
                 color: 'green',

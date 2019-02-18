@@ -81,6 +81,7 @@ module.exports = class Console {
         options,
         callsite,
         color,
+        moduleName,
     }) {
         if (options) context.setOptions(options);
         
@@ -90,6 +91,7 @@ module.exports = class Console {
             callsite,
             color,
             options,
+            moduleName,
         });
         
         // return the context to the user
