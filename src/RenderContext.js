@@ -10,7 +10,7 @@ module.exports = class RenderContext {
     constructor({
         indentation,
         renderers,
-        printer = console.log,
+        printer = console.error,
         theme,
     }) {
         if (theme.indentation) this.indentation = theme.indentation;
